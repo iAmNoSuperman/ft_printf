@@ -62,17 +62,17 @@ int		ft_case_d(int nbr, t_flags flags)
 
 	ret_val = 0;
 	tmp = nbr;
-	if (flags.dot_met == 0 && nbr == 0)
-	{
-		ret_val += ft_width_deal(flags.cur_width, 0, 0);
-		return (ret_val);
-	}
 	if (nbr < 0 && (flags.dot_met >= 0 || flags.zero_met == 1))
 	{
 		if (flags.zero_met == 1 && flags.dot_met <= -1)
 			ret_val += ft_putchar('-');
 		flags.cur_width--;
 		nbr *= -1;
+	}
+	if (flags.dot_met == 0 && nbr == 0)
+	{
+		ret_val += ft_width_deal(flags.cur_width, 0, 0);
+		return (ret_val);
 	}
 	nbr_str = ft_itoa(nbr);
 	ret_val += ft_flag_deal_d(nbr_str, tmp, flags);

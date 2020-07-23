@@ -35,7 +35,8 @@ int			ft_case_c(char c, t_flags flags)
 	ret_val = ft_width_deal(flags.cur_width, 1, 0);
 	if (flags.minus_met == 0)
 		ft_putchar(c);
-	return (ret_val + 1);
+	ret_val += 1;
+	return (ret_val);
 }
 
 int			ft_put_s(char *s, t_flags flags, size_t len)

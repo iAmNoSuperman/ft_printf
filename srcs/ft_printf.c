@@ -14,7 +14,7 @@
 
 int			var_type(int c)
 {
-	if ((c == 'c') || (c == 's') || (c == 'd') || (c == 'i') || (c == 'p')
+	if ((c == 'c') || (c == 'd') || (c == 'i') || (c == 'p') || (c == 's')
 		|| (c == 'u') || (c == 'x') || (c == 'X') || (c == '%'))
 		return (1);
 	return (0);
@@ -29,19 +29,19 @@ int			flag_type_rit(const char *s, int i, t_flags *f, va_list av)
 			break ;
 		if (s[i] == '-')
 			*f = flag_minus(*f);
-		if (s[i] == '0' && f->cur_width == 0 && f->minus_met == 0)
-			f->zero_met = 1;
 		if (s[i] == '.')
 			i = flag_dot(s, i, f, av);
 		if (s[i] == '*')
 			*f = flag_width(*f, av);
-		if (ft_isdigit(s[i]))
-			*f = flag_digit(s[i], *f);
+		if (s[i] == '0' && f->cur_width == 0 && f->minus_met == 0)
+			f->zero_met = 1;
 		if (var_type(s[i]))
 		{
 			f->var_type_met = s[i];
 			break ;
 		}
+		if (ft_isdigit(s[i]))
+			*f = flag_digit(s[i], *f);
 		i++;
 	}
 	return (i);
@@ -54,12 +54,12 @@ int			var_type_deal(int c, t_flags flags, va_list av)
 	done = 0;
 	if (c == 'c')
 		done += ft_case_c(va_arg(av, int), flags);
-	else if (c == 's')
-		done += ft_case_s(va_arg(av, char *), flags);
 	else if (c == 'd' || c == 'i')
 		done += ft_case_d(va_arg(av, int), flags);
 	else if (c == 'p')
 		done += ft_case_p(va_arg(av, unsigned long long), flags);
+	else if (c == 's')
+		done += ft_case_s(va_arg(av, char *), flags);
 	else if (c == 'u')
 		done += ft_case_u(va_arg(av, unsigned int), flags);
 	else if (c == 'x')

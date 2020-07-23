@@ -24,7 +24,12 @@ SOURCE = srcs/ft_printf.c \
 %.o: %.c $(HEADER)
 	gcc $(FLAGS) -c $< -o $@
 
-OBJECTS = $(SOURCE:%.c=%.o)
+OBJECTS = srcs/ft_printf.o \
+	srcs/ft_printf_d.o \
+	srcs/ft_printf_x_i_base.o \
+	srcs/ft_printf_s_c_prc.o \
+	srcs/ft_printf_flags.o \
+	srcs/ft_printf_u_p.o \
 
 $(NAME):	$(OBJECTS)
 	@$(MAKE) all -C ./libft
