@@ -14,7 +14,14 @@
 
 int		ft_putstr(char *s, int length)
 {
-	write(1, s, length);
-	return (1);
+	int index;
+
+	index = 0;
+	while(*(s + index) != '\0' && index < length)
+	{
+		ft_putchar(*(s + index));
+		index += 1;
+	}
+	return (index);
 }
 
