@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf_flags.c                                  :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vtweek <vtweek@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/23 02:32:11 by vtweek            #+#    #+#             */
+/*   Updated: 2020/07/23 02:33:12 by vtweek           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/ft_printf.h"
 
 t_flags		flag_minus(t_flags flags)
@@ -28,8 +40,8 @@ int			flag_dot(const char *s, int i, t_flags *flags, va_list av)
 	}
 	else
 	{
-		flags->dot_met= 0;
-		while(ft_isdigit(s[i]))
+		flags->dot_met = 0;
+		while (ft_isdigit(s[i]))
 			flags->dot_met = (flags->dot_met * 10) + (s[i++] - 48);
 	}
 	return (i);

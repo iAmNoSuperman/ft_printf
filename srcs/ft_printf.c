@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vtweek <vtweek@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/23 02:21:04 by vtweek            #+#    #+#             */
+/*   Updated: 2020/07/23 02:53:19 by vtweek           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/ft_printf.h"
 
-int 		var_type(int c)
+int			var_type(int c)
 {
 	if ((c == 'c') || (c == 's') || (c == 'd') || (c == 'i') || (c == 'p')
 		|| (c == 'u') || (c == 'x') || (c == 'X') || (c == '%'))
@@ -8,26 +20,26 @@ int 		var_type(int c)
 	return (0);
 }
 
-int 		flag_type_read(const char *s, int i, t_flags *flags, va_list av)
+int			flag_type_rit(const char *s, int i, t_flags *f, va_list av)
 {
-	while(s[i])
+	while (s[i])
 	{
-		if (!ft_isdigit(s[i]) && !var_type(s[i]) && (s[i] != '-') && (s[i] != '0')
-			&& (s[i] != '.') && (s[i] != '*'))
+		if (!ft_isdigit(s[i]) && !var_type(s[i]) && (s[i] != '-')
+				&& (s[i] != '0') && (s[i] != '.') && (s[i] != '*'))
 			break ;
 		if (s[i] == '-')
-			*flags = flag_minus(*flags);
-		if (s[i] == '0' && flags->cur_width == 0 && flags->minus_met == 0)
-			flags->zero_met = 1;
+			*f = flag_minus(*f);
+		if (s[i] == '0' && f->cur_width == 0 && f->minus_met == 0)
+			f->zero_met = 1;
 		if (s[i] == '.')
-			i = flag_dot(s, i, flags, av);
+			i = flag_dot(s, i, f, av);
 		if (s[i] == '*')
-			*flags = flag_width(*flags, av);
+			*f = flag_width(*f, av);
 		if (ft_isdigit(s[i]))
-			*flags = flag_digit(s[i], *flags);
+			*f = flag_digit(s[i], *f);
 		if (var_type(s[i]))
 		{
-			flags->var_type_met = s[i];
+			f->var_type_met = s[i];
 			break ;
 		}
 		i++;
@@ -35,7 +47,7 @@ int 		flag_type_read(const char *s, int i, t_flags *flags, va_list av)
 	return (i);
 }
 
-int 		var_type_deal(int c, t_flags flags, va_list av)
+int			var_type_deal(int c, t_flags flags, va_list av)
 {
 	int		done;
 
@@ -59,11 +71,11 @@ int 		var_type_deal(int c, t_flags flags, va_list av)
 	return (done);
 }
 
-int 		ft_read_str(const char *s, va_list av)
+int			ft_read_str(const char *s, va_list av)
 {
 	t_flags		flags_met;
-	int 		done;
-	int 		i;
+	int			done;
+	int			i;
 
 	done = 0;
 	i = 0;
@@ -75,10 +87,11 @@ int 		ft_read_str(const char *s, va_list av)
 		{
 			i++;
 			flags_met = set_dflt_flags();
-			i = flag_type_read(s, i, &flags_met, av);
+			i = flag_type_rit(s, i, &flags_met, av);
 			if (var_type(s[i]))
-				done += var_type_deal((char) flags_met.var_type_met, flags_met, av);
-			else if(s[i])
+				done += var_type_deal((char)flags_met.var_type_met,
+						flags_met, av);
+			else if (s[i])
 				done += ft_putchar(s[i]);
 		}
 		i++;
@@ -86,10 +99,10 @@ int 		ft_read_str(const char *s, va_list av)
 	return (done);
 }
 
-int 		ft_printf(const char *s, ...)
+int			ft_printf(const char *s, ...)
 {
-	va_list	av;
-	int 	done;
+	va_list		av;
+	int			done;
 
 	if (s == NULL)
 		return (-1);

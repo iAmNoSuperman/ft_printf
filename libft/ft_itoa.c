@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*   ft_itoa_1.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vtweek <vtweek@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 18:56:15 by vtweek            #+#    #+#             */
-/*   Updated: 2020/05/25 18:56:21 by vtweek           ###   ########.fr       */
+/*   Updated: 2020/07/23 02:18:07 by vtweek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int		ft_d_len(int numb)
+int		ft_d_len(int numb)
 {
 	int len;
 
@@ -27,11 +27,10 @@ static int		ft_d_len(int numb)
 	return (len);
 }
 
-char			*ft_itoa(int n)
+char	*ft_itoa(int n)
 {
 	int		len;
 	char	*str;
-
 
 	if (n >= 0)
 		n = (~n) + 1;
@@ -39,6 +38,7 @@ char			*ft_itoa(int n)
 	if (!(str = (char *)malloc(sizeof(char) * (len + 1))))
 		return (NULL);
 	str[len] = '\0';
+	str[0] = '0';
 	while (n != 0)
 	{
 		len--;

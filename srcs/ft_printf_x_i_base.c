@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf_x_i_base.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vtweek <vtweek@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/23 02:36:11 by vtweek            #+#    #+#             */
+/*   Updated: 2020/07/23 02:55:32 by vtweek           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/ft_printf.h"
 
-int		    ft_uxX_len(unsigned long long numb, int base)
+int			ft_ux_len(unsigned long long numb, int base)
 {
 	int len;
 
@@ -17,34 +29,34 @@ int		    ft_uxX_len(unsigned long long numb, int base)
 
 char		*ft_itoa_base(unsigned long long n, int base, int flag)
 {
-	int						len;
-	unsigned long long		reminder;
-	char					*str;
-	char					*letters_x;
-	char 					*letters_x_grand;
+	int					len;
+	unsigned long long	rmindr;
+	char				*str;
+	char				*letters_x;
+	char				*letters_x_grand;
 
 	if (n == 0)
 		return (ft_strdup("0"));
 	len = 0;
 	letters_x = "0123456789abcdef";
 	letters_x_grand = "0123456789ABCDEF";
-	len += ft_uxX_len(n, base);
+	len += ft_ux_len(n, base);
 	if (!(str = (char *)malloc(sizeof(char) * (len + 1))))
 		return (NULL);
 	str[len] = '\0';
 	while (n > 0)
 	{
 		len--;
-		reminder = n % base;
-		str[len] = (flag == 1) ? letters_x[reminder] : letters_x_grand[reminder];
+		rmindr = n % base;
+		str[len] = (flag == 1) ? letters_x[rmindr] : letters_x_grand[rmindr];
 		n = n / base;
 	}
 	return (str);
 }
 
-int 	ft_put_x(char *x, t_flags flags, size_t len)
+int			ft_put_x(char *x, t_flags flags, size_t len)
 {
-	int 	done;
+	int		done;
 
 	done = 0;
 	if (flags.dot_met >= 0)
@@ -53,10 +65,10 @@ int 	ft_put_x(char *x, t_flags flags, size_t len)
 	return (done);
 }
 
-int	ft_flag_deal_x(char *x, t_flags flags)
+int			ft_flag_deal_x(char *x, t_flags flags)
 {
 	size_t	len;
-	int 			done;
+	int		done;
 
 	len = ft_strlen(x);
 	done = 0;
@@ -67,7 +79,7 @@ int	ft_flag_deal_x(char *x, t_flags flags)
 	if (flags.dot_met >= 0)
 	{
 		flags.cur_width -= flags.dot_met;
-		done += ft_width_deal(flags.cur_width, 0 , 0);
+		done += ft_width_deal(flags.cur_width, 0, 0);
 	}
 	else
 		done += ft_width_deal(flags.cur_width, len, flags.zero_met);
@@ -76,9 +88,9 @@ int	ft_flag_deal_x(char *x, t_flags flags)
 	return (done);
 }
 
-int 		ft_case_x(unsigned int nbr, int lower, t_flags flags)
+int			ft_case_x(unsigned int nbr, int lower, t_flags flags)
 {
-	int 	done;
+	int		done;
 	char	*x;
 
 	done = 0;
@@ -89,6 +101,6 @@ int 		ft_case_x(unsigned int nbr, int lower, t_flags flags)
 	}
 	x = ft_itoa_base((unsigned long long)nbr, 16, lower);
 	done += ft_flag_deal_x(x, flags);
-	free (x);
+	free(x);
 	return (done);
 }

@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf_s_c_prc.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vtweek <vtweek@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/23 02:33:39 by vtweek            #+#    #+#             */
+/*   Updated: 2020/07/23 02:35:31 by vtweek           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/ft_printf.h"
 
-int 		ft_case_prc(t_flags flags)
+int			ft_case_prc(t_flags flags)
 {
 	int done;
 
@@ -13,7 +25,7 @@ int 		ft_case_prc(t_flags flags)
 	return (done + 1);
 }
 
-int 		ft_case_c(char c, t_flags flags)
+int			ft_case_c(char c, t_flags flags)
 {
 	int	done;
 
@@ -26,7 +38,7 @@ int 		ft_case_c(char c, t_flags flags)
 	return (done + 1);
 }
 
-int 		ft_put_s(char *s, t_flags flags, size_t len)
+int			ft_put_s(char *s, t_flags flags, size_t len)
 {
 	int done;
 
@@ -35,16 +47,17 @@ int 		ft_put_s(char *s, t_flags flags, size_t len)
 	{
 		done += ft_width_deal(flags.dot_met, len, 0);
 		done += ft_putstr(s, flags.dot_met);
-	} else
+	}
+	else
 		done += ft_putstr(s, len);
 	return (done);
 }
 
-int 		ft_case_s(char *s, t_flags flags)
+int			ft_case_s(char *s, t_flags flags)
 {
-	int 	done;
-	char 	*s_sub;
-	int 	len;
+	int		done;
+	char	*s_sub;
+	int		len;
 
 	if (!s)
 		s = "(null)";
@@ -65,7 +78,7 @@ int 		ft_case_s(char *s, t_flags flags)
 	return (done);
 }
 
-int 		ft_width_deal(int width, int str_len, int zero_flag)
+int			ft_width_deal(int width, int str_len, int zero_flag)
 {
 	int	i;
 

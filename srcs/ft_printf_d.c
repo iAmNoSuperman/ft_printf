@@ -1,58 +1,34 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf_d.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: vtweek <vtweek@student.21-school.ru>       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2020/07/23 02:26:35 by vtweek            #+#    #+#             */
+/*   Updated: 2020/07/23 19:59:16 by vtweek           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../include/ft_printf.h"
 
-//static int		ft_d_len(int numb)
-//{
-//	int len;
-//
-//	len = 0;
-//	if (numb == 0)
-//		len = 1;
-//	while (numb != 0)
-//	{
-//		numb = numb / 10;
-//		len++;
-//	}
-//	return (len);
-//}
-//
-//char			*ft_itoa(int n)
-//{
-//	int		len;
-//	char	*str;
-//
-//
-//	if (n >= 0)
-//		n = (~n) + 1;
-//	len = ft_d_len(n);
-//	if (!(str = (char *)malloc(sizeof(char) * (len + 1))))
-//		return (NULL);
-//	str[len] = '\0';
-//	while (n != 0)
-//	{
-//		len--;
-//		str[len] = ~(n % 10) + 1 + '0';
-//		n = n / 10;
-//	}
-//	return (str);
-//}
-
-int	ft_put_d(char *nbr_str, int tmp, t_flags flags, size_t len)
+int		ft_put_d(char *nbr_str, int tmp, t_flags flags, size_t len)
 {
-	int 	done;
+	int	done;
 
 	done = 0;
-	if (tmp < 0 && (flags.dot_met >= 0 || flags.zero_met == 0))				//was && here
-		ft_putchar ('-');
+	if (tmp < 0 && (flags.dot_met >= 0 || flags.zero_met == 0))
+		done += ft_putchar('-');
 	if (flags.dot_met >= 0)
 		done += ft_width_deal(flags.dot_met - 1, len - 1, 1);
 	done += ft_putstr(nbr_str, len);
 	return (done);
 }
 
-int ft_flag_deal_d(char *nbr_str, int tmp, t_flags flags)
+int		ft_flag_deal_d(char *nbr_str, int tmp, t_flags flags)
 {
-	size_t 			len;
-	int 			done;
+	size_t		len;
+	int			done;
 
 	len = ft_strlen(nbr_str);
 	done = 0;
@@ -63,11 +39,14 @@ int ft_flag_deal_d(char *nbr_str, int tmp, t_flags flags)
 	if (flags.dot_met >= 0)
 	{
 		flags.cur_width -= flags.dot_met;
-		done += ft_width_deal(flags.cur_width, 0 , 0);
+		done += ft_width_deal(flags.cur_width, 0, 0);
 	}
-	else {
+	else
+	{
 		if (tmp < 0 && flags.zero_met == 0)
 			len++;
+		if (flags.zero_met > 0 && flags.minus_met > 0)
+			flags.zero_met = 0;
 		done += ft_width_deal(flags.cur_width, len, flags.zero_met);
 	}
 	if (flags.minus_met == 0)
@@ -75,11 +54,11 @@ int ft_flag_deal_d(char *nbr_str, int tmp, t_flags flags)
 	return (done);
 }
 
-int 		ft_case_d(int nbr, t_flags flags)
+int		ft_case_d(int nbr, t_flags flags)
 {
-	char 	*nbr_str;
-	int		tmp;
-	int		done;
+	char		*nbr_str;
+	int			tmp;
+	int			done;
 
 	done = 0;
 	tmp = nbr;
@@ -88,13 +67,12 @@ int 		ft_case_d(int nbr, t_flags flags)
 		done += ft_width_deal(flags.cur_width, 0, 0);
 		return (done);
 	}
-	if (nbr < 0 && (flags.dot_met >= 0 || flags.zero_met == 1)) //was && in first
+	if (nbr < 0 && (flags.dot_met >= 0 || flags.zero_met == 1))
 	{
-		if (flags.zero_met == 1 && flags.dot_met == -1)		// was &&
-			ft_putchar('-');
+		if (flags.zero_met == 1 && flags.dot_met <= -1)
+			done += ft_putchar('-');
 		flags.cur_width--;
 		nbr *= -1;
-		done++;
 	}
 	nbr_str = ft_itoa(nbr);
 	done += ft_flag_deal_d(nbr_str, tmp, flags);
