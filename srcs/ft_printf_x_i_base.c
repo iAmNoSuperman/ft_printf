@@ -56,51 +56,51 @@ char		*ft_itoa_base(unsigned long long n, int base, int flag)
 
 int			ft_put_x(char *x, t_flags flags, size_t len)
 {
-	int		done;
+	int		ret_val;
 
-	done = 0;
+	ret_val = 0;
 	if (flags.dot_met >= 0)
-		done += ft_width_deal(flags.dot_met - 1, len - 1, 1);
-	done += ft_putstr(x, len);
-	return (done);
+		ret_val += ft_width_deal(flags.dot_met - 1, len - 1, 1);
+	ret_val += ft_putstr(x, len);
+	return (ret_val);
 }
 
 int			ft_flag_deal_x(char *x, t_flags flags)
 {
 	size_t	len;
-	int		done;
+	int		ret_val;
 
 	len = ft_strlen(x);
-	done = 0;
+	ret_val = 0;
 	if (flags.minus_met == 1)
-		done += ft_put_x(x, flags, len);
+		ret_val += ft_put_x(x, flags, len);
 	if (flags.dot_met >= 0 && (size_t)flags.dot_met < len)
 		flags.dot_met = len;
 	if (flags.dot_met >= 0)
 	{
 		flags.cur_width -= flags.dot_met;
-		done += ft_width_deal(flags.cur_width, 0, 0);
+		ret_val += ft_width_deal(flags.cur_width, 0, 0);
 	}
 	else
-		done += ft_width_deal(flags.cur_width, len, flags.zero_met);
+		ret_val += ft_width_deal(flags.cur_width, len, flags.zero_met);
 	if (flags.minus_met == 0)
-		done += ft_put_x(x, flags, len);
-	return (done);
+		ret_val += ft_put_x(x, flags, len);
+	return (ret_val);
 }
 
 int			ft_case_x(unsigned int nbr, int lower, t_flags flags)
 {
-	int		done;
+	int		ret_val;
 	char	*x;
 
-	done = 0;
+	ret_val = 0;
 	if (flags.dot_met == 0 && nbr == 0)
 	{
-		done = ft_width_deal(flags.cur_width, 0, 0);
-		return (done);
+		ret_val = ft_width_deal(flags.cur_width, 0, 0);
+		return (ret_val);
 	}
 	x = ft_itoa_base((unsigned long long)nbr, 16, lower);
-	done += ft_flag_deal_x(x, flags);
+	ret_val += ft_flag_deal_x(x, flags);
 	free(x);
-	return (done);
+	return (ret_val);
 }
