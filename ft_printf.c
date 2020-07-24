@@ -6,11 +6,11 @@
 /*   By: vtweek <vtweek@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 02:21:04 by vtweek            #+#    #+#             */
-/*   Updated: 2020/07/23 02:53:19 by vtweek           ###   ########.fr       */
+/*   Updated: 2020/07/24 22:51:03 by vtweek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_printf.h"
+#include "ft_printf.h"
 
 int			var_type(int c)
 {
@@ -28,11 +28,11 @@ int			flag_type_rit(const char *s, int i, t_flags *f, va_list av)
 				&& (s[i] != '0') && (s[i] != '.') && (s[i] != '*'))
 			break ;
 		if (s[i] == '-')
-			*f = flag_minus(*f);
+			flag_minus(f);
 		if (s[i] == '.')
 			i = flag_dot(s, i, f, av);
 		if (s[i] == '*')
-			*f = flag_width(*f, av);
+			flag_width(f, av);
 		if (s[i] == '0' && f->cur_width == 0 && f->minus_met == 0)
 			f->zero_met = 1;
 		if (var_type(s[i]))
@@ -41,7 +41,7 @@ int			flag_type_rit(const char *s, int i, t_flags *f, va_list av)
 			break ;
 		}
 		if (ft_isdigit(s[i]))
-			*f = flag_digit(s[i], *f);
+			flag_digit(s[i], f);
 		i++;
 	}
 	return (i);
@@ -104,8 +104,6 @@ int			ft_printf(const char *s, ...)
 	va_list		av;
 	int			done;
 
-	if (s == NULL)
-		return (-1);
 	va_start(av, s);
 	done = ft_read_str(s, av);
 	va_end(av);

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../include/ft_printf.h"
+#include "ft_printf.h"
 
 int		ft_put_d(char *nbr_str, int tmp, t_flags flags, size_t len)
 {

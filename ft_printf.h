@@ -6,24 +6,25 @@
 /*   By: vtweek <vtweek@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 01:57:12 by vtweek            #+#    #+#             */
-/*   Updated: 2020/07/23 02:07:35 by vtweek           ###   ########.fr       */
+/*   Updated: 2020/07/24 21:33:31 by vtweek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_PRINTF_H
 # define FT_PRINTF_H
 
-# include "../libft/libft.h"
+# include "./libft/libft.h"
 # include <stdarg.h>
 
 typedef struct		s_flags
 {
-	int				var_type_met;
-	int				minus_met;
-	int				zero_met;
 	int				cur_width;
+	int				minus_met;
 	int				star_met;
 	int				dot_met;
+	int				var_type_met;
+	int				zero_met;
+
 }					t_flags;
 
 int					ft_printf(const char *s, ...);
@@ -32,10 +33,10 @@ int					var_type_deal(int c, t_flags flags, va_list av);
 int					flag_type_rit(const char *s, int i, t_flags *f, va_list av);
 int					var_type(int c);
 t_flags				set_dflt_flags(void);
-t_flags				flag_digit(char c, t_flags flags);
+void				flag_digit(char c, t_flags *flags);
 int					flag_dot(const char *s, int i, t_flags *flags, va_list av);
-t_flags				flag_width(t_flags flags, va_list av);
-t_flags				flag_minus(t_flags flags);
+void				flag_width(t_flags *flags, va_list av);
+void				flag_minus(t_flags *flags);
 int					ft_width_deal(int width, int str_len, int zero_flag);
 int					ft_case_s(char *s, t_flags flags);
 int					ft_put_s(char *s, t_flags flags, size_t len);
