@@ -6,7 +6,7 @@
 /*   By: vtweek <vtweek@student.21-school.ru>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/05/25 18:58:00 by vtweek            #+#    #+#             */
-/*   Updated: 2020/05/28 11:34:25 by vtweek           ###   ########.fr       */
+/*   Updated: 2020/07/23 13:14:00 by vtweek           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,13 @@
 
 int		ft_putstr(char *s, int length)
 {
-	int index;
+	int	index;
 
 	index = 0;
-	while(*(s + index) != '\0' && index < length)
+	while (*(s + index) != '\0' && index < length)
 	{
 		ft_putchar(*(s + index));
-		index += 1;
+		index++;
 	}
 	return (index);
 }
-
